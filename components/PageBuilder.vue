@@ -26,7 +26,7 @@ const props = defineProps<{
 const blocks = computed(() => {
 	const blocks = unref(props.page as Page)?.blocks as PageBlock[];
 	return blocks?.filter((block) => {
-		return block.hide_block !== true;
+		return block && block.hide_block !== true;
 	});
 });
 </script>

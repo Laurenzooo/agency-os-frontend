@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n();
+
 const {
 	data: invoices,
 	pending,
@@ -30,25 +32,25 @@ const totalAmountDue = computed(() => {
 	}, 0);
 });
 
-const columns = [
+const columns = computed(() => [
 	{
 		key: 'invoice_number',
-		label: '#',
+		label: t('invoices.invoiceNumber'),
 	},
 	{
 		key: 'due_date',
-		label: 'Due Date',
+		label: t('invoices.dueDate'),
 	},
 	{
 		key: 'amount_due',
-		label: 'Amount Due',
+		label: t('invoices.amountDue'),
 	},
-];
+]);
 </script>
 <template>
 	<div class="w-full px-4 py-10 bg-white border rounded-panel dark:border-gray-700 dark:bg-gray-900">
 		<div>
-			<dt class="font-medium leading-6 text-gray-500 font-display dark:text-gray-300">Open Invoices</dt>
+			<dt class="font-medium leading-6 text-gray-500 font-display dark:text-gray-300">{{ t('invoices.openInvoices') }}</dt>
 			<dd class="flex-none w-full text-3xl font-medium leading-10 tracking-tight text-gray-900 dark:text-white">
 				{{ totalAmountDue ? formatCurrency(totalAmountDue) : 'N/A' }}
 			</dd>

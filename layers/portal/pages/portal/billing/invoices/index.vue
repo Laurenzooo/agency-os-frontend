@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { path, query } = useRoute();
 const router = useRouter();
+const { t } = useI18n();
 
 // Filters
 const search: Ref<any> = ref(query?.search?.toString() ?? undefined);
@@ -76,54 +77,54 @@ const totalCount = computed(() => data.value?.count ?? 0);
 const pageFrom = computed(() => (page.value - 1) * rowsPerPage.value + (invoices.value.length ? 1 : 0));
 const pageTo = computed(() => Math.min(page.value * rowsPerPage.value, totalCount.value));
 
-const statusOptions = [
+const statusOptions = computed(() => [
 	{
-		label: 'Open',
+		label: t('invoices.statusOpen'),
 		value: 'unpaid',
 	},
 	{
-		label: 'Paid',
+		label: t('invoices.statusPaid'),
 		value: 'paid',
 	},
 	{
-		label: 'All',
+		label: t('invoices.statusAll'),
 		value: '',
 	},
-];
+]);
 
-const columns = [
+const columns = computed(() => [
 	{
 		key: 'invoice_number',
-		label: '#',
+		label: t('invoices.invoiceNumber'),
 		sortable: true,
 	},
 	{
 		key: 'status',
-		label: 'Status',
+		label: t('invoices.status'),
 	},
 	{
 		key: 'due_date',
-		label: 'Due Date',
+		label: t('invoices.dueDate'),
 		sortable: true,
 	},
 	{
 		key: 'contact',
-		label: 'Contact',
+		label: t('invoices.contact'),
 	},
 	{
 		key: 'total',
-		label: 'Total',
+		label: t('invoices.total'),
 		sortable: true,
 	},
 	{
 		key: 'amount_due',
-		label: 'Amount Due',
+		label: t('invoices.amountDue'),
 		sortable: true,
 	},
 	{
 		key: 'actions',
 	},
-];
+]);
 
 const { getPortalLink, loading: stripeLoading } = useStripe();
 
@@ -149,14 +150,14 @@ function clearFilters() {
 <template>
 	<div>
 		<PortalPageHeader
-			title="Invoices"
+			:title="t('invoices.title')"
 			:breadcrumbs="[
 				{
-					title: 'Portal',
+					title: t('portal.portal'),
 					href: '/portal',
 				},
 				{
-					title: 'Billing',
+					title: t('nav.billing'),
 				},
 			]"
 		>
@@ -168,7 +169,7 @@ function clearFilters() {
 					:loading="stripeLoading"
 					@click="getPortalLink('cus_OlTbJKVanSb1zN')"
 				>
-					Update Payment Settings
+					{{ t('invoices.updatePaymentSettings') }}
 				</UButton>
 			</template>
 		</PortalPageHeader>
@@ -176,9 +177,9 @@ function clearFilters() {
 			<template #header>
 				<!-- Filters -->
 				<div class="flex items-center justify-between gap-3">
-					<UInput v-model="search" icon="i-heroicons-magnifying-glass-20-solid" placeholder="Search..." type="text" />
+					<UInput v-model="search" icon="i-heroicons-magnifying-glass-20-solid" :placeholder="t('invoices.search')" type="text" />
 					<div class="flex gap-3">
-						<USelect v-model="status" :options="statusOptions" placeholder="Invoice Status" />
+						<USelect v-model="status" :options="statusOptions" :placeholder="t('invoices.invoiceStatus')" />
 						<UButton
 							color="white"
 							size="xs"
@@ -186,7 +187,7 @@ function clearFilters() {
 							icon="material-symbols:filter-alt-off-outline-rounded"
 							@click="clearFilters"
 						>
-							Reset
+							{{ t('invoices.reset') }}
 						</UButton>
 					</div>
 				</div>
@@ -197,7 +198,7 @@ function clearFilters() {
 				<template #empty-state>
 					<div class="w-1/4 mx-auto text-center">
 						<img src="~/assets/illustrations/tokyo-attention-sign.svg" alt="Empty State" />
-						<TypographyHeadline content="Looks like there's nothing here." size="xs" />
+						<TypographyHeadline :content="t('invoices.nothingHere')" size="xs" />
 						<UButton
 							v-if="search || status"
 							color="white"
@@ -206,7 +207,7 @@ function clearFilters() {
 							class="mt-4"
 							@click="clearFilters"
 						>
-							Reset Filters
+							{{ t('invoices.resetFilters') }}
 						</UButton>
 					</div>
 				</template>
@@ -257,13 +258,13 @@ function clearFilters() {
 				<div class="flex flex-wrap items-center justify-between">
 					<VText>
 						<span class="text-sm leading-5">
-							Showing
+							{{ t('invoices.showing') }}
 							<span class="font-medium">{{ pageFrom }}</span>
-							to
+							{{ t('invoices.to') }}
 							<span class="font-medium">{{ pageTo }}</span>
-							of
+							{{ t('invoices.of') }}
 							<span class="font-medium">{{ totalCount }}</span>
-							results
+							{{ t('invoices.results') }}
 						</span>
 					</VText>
 					<UPagination v-model="page" :page-count="rowsPerPage" :total="totalCount" />

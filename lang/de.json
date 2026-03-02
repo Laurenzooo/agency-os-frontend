@@ -1,0 +1,139 @@
+{
+    "nav": {
+        "search": "Suche",
+        "dashboard": "Dashboard",
+        "projects": "Projekte",
+        "files": "Dateien",
+        "billing": "Abrechnung",
+        "account": "Konto",
+        "help": "Hilfe",
+        "openUserMenu": "Benutzermenü öffnen",
+        "closeSidebar": "Seitenleiste schließen"
+    },
+    "user": {
+        "yourProfile": "Dein Profil",
+        "signOut": "Abmelden",
+        "friend": "Freund"
+    },
+    "portal": {
+        "portal": "Portal",
+        "tryAgain": "Erneut versuchen",
+        "errorOccurred": "Ein Fehler ist aufgetreten: {error}"
+    },
+    "dashboard": {
+        "greetings": [
+            "Denk daran, jede Herausforderung ist gemeinsam leichter.",
+            "Deine Vision ist unsere Mission. Gemeinsam schaffen wir etwas Großartiges.",
+            "Die besten Projekte werden durch Zusammenarbeit angetrieben. Auf einen weiteren erfolgreichen Tag!",
+            "Jedes Detail, jede Idee, jedes Feedback. Alles zählt. Danke, dass du uns deine Vision anvertraust.",
+            "Projektmanagement geht nicht nur um das Ziel, sondern um den Weg dorthin. Wir freuen uns, diese Reise mit dir zu erleben.",
+            "Mit jeder Herausforderung wachsen wir. Danke, dass du uns zu Höchstleistungen motivierst!",
+            "Vom Konzept bis zur Fertigstellung – deine Wünsche sind in engagierten Händen. Lass uns gemeinsam voranschreiten.",
+            "Wie eine Symphonie zählt jede Note. Wir harmonieren perfekt mit deiner Vision.",
+            "Bei den heutigen Aufgaben – wisse, dass unser Engagement für deinen Erfolg unerschütterlich ist.",
+            "Jeder Schritt mit dir ist ein Schritt in Richtung Brillanz. Danke, dass du diese Reise heller machst."
+        ]
+    },
+    "projects": {
+        "title": "Projekte",
+        "name": "Name",
+        "status": "Status",
+        "targetDate": "Zieldatum",
+        "overview": "Übersicht",
+        "tasks": "Aufgaben",
+        "conversations": "Gespräche",
+        "files": "Dateien",
+        "billing": "Abrechnung",
+        "milestones": "Meilensteine",
+        "description": "Beschreibung",
+        "team": "Team",
+        "projectOwner": "Projektleiter",
+        "contacts": "Kontakte",
+        "updates": "Aktualisierungen",
+        "companyName": "Firmenname"
+    },
+    "tasks": {
+        "name": "Name",
+        "dueDate": "Fällig am",
+        "status": "Status",
+        "type": "Typ",
+        "assignedTo": "Zugewiesen an",
+        "openTasks": "Offene Aufgaben",
+        "tasks": "Aufgaben",
+        "taskWithNoName": "Aufgabe ohne Namen",
+        "close": "Schließen",
+        "description": "Beschreibung",
+        "files": "Dateien",
+        "form": "Formular",
+        "embed": "Einbettung",
+        "markAs": "Als {status} markieren",
+        "taskNotFound": "Aufgabe nicht gefunden",
+        "errorUpdatingTask": "Fehler beim Aktualisieren der Aufgabe"
+    },
+    "taskStatuses": {
+        "pending": "Ausstehend",
+        "active": "Als Nächstes",
+        "in_progress": "In Bearbeitung",
+        "in_review": "In Überprüfung",
+        "completed": "Abgeschlossen"
+    },
+    "invoices": {
+        "title": "Rechnungen",
+        "invoiceNumber": "#",
+        "status": "Status",
+        "dueDate": "Fällig am",
+        "contact": "Kontakt",
+        "total": "Gesamt",
+        "amountDue": "Offener Betrag",
+        "updatePaymentSettings": "Zahlungseinstellungen aktualisieren",
+        "search": "Suchen...",
+        "invoiceStatus": "Rechnungsstatus",
+        "reset": "Zurücksetzen",
+        "resetFilters": "Filter zurücksetzen",
+        "nothingHere": "Sieht aus, als wäre hier nichts.",
+        "showing": "Zeige",
+        "to": "bis",
+        "of": "von",
+        "results": "Ergebnisse",
+        "payInvoice": "Rechnung bezahlen",
+        "paid": "Bezahlt",
+        "reference": "Referenz: {ref}",
+        "issuedOn": "Ausgestellt am {date}",
+        "dueOn": "Fällig am {date}",
+        "billTo": "Rechnungsempfänger",
+        "lineItems": "Positionen",
+        "lineNumber": "Pos. #",
+        "item": "Artikel",
+        "quantity": "Menge",
+        "unitPrice": "Einzelpreis",
+        "lineAmount": "Betrag",
+        "taxAmount": "Steuer",
+        "subtotal": "Zwischensumme",
+        "taxes": "Steuern",
+        "openInvoices": "Offene Rechnungen",
+        "statusOpen": "Offen",
+        "statusPaid": "Bezahlt",
+        "statusAll": "Alle"
+    },
+    "files": {
+        "title": "Dateibibliothek",
+        "files": "Dateien",
+        "uploadFiles": "Dateien hochladen",
+        "uploadFile": "Datei hochladen",
+        "done": "Fertig"
+    },
+    "account": {
+        "title": "Konto"
+    },
+    "help": {
+        "title": "Hilfecenter"
+    },
+    "search": {
+        "searchItems": "Elemente suchen",
+        "goToProjects": "Zu Projekte",
+        "goToFiles": "Zu Dateien",
+        "goToInvoices": "Zu Rechnungen",
+        "goToMyAccount": "Zu Mein Konto",
+        "resultsMatching": "Ergebnisse für \"{q}\"..."
+    }
+}

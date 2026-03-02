@@ -2,6 +2,7 @@
 const { handleCheckout, loading: stripeLoading } = useStripe();
 const { path, params } = useRoute();
 const { globals } = useAppConfig();
+const { t } = useI18n();
 
 const {
 	data: invoice,
@@ -38,32 +39,32 @@ const {
 	{},
 );
 
-const lineItemColumns = [
+const lineItemColumns = computed(() => [
 	{
 		key: 'line_item_number',
-		label: 'Line #',
+		label: t('invoices.lineNumber'),
 	},
 	{
 		key: 'item_name',
-		label: 'Item',
+		label: t('invoices.item'),
 	},
 	{
 		key: 'quantity',
-		label: 'Quantity',
+		label: t('invoices.quantity'),
 	},
 	{
 		key: 'unit_price',
-		label: 'Unit Price',
+		label: t('invoices.unitPrice'),
 	},
 	{
 		key: 'line_amount',
-		label: 'Line Amount',
+		label: t('invoices.lineAmount'),
 	},
 	{
 		key: 'tax_amount',
-		label: 'Tax Amount',
+		label: t('invoices.taxAmount'),
 	},
-];
+]);
 
 const isPaid = computed(() => {
 	return unref(invoice)?.status === 'paid';
@@ -76,36 +77,36 @@ const billingAddress = computed(() => {
 <template>
 	<div>
 		<PortalPageHeader
-			:title="`Invoice #${invoice?.invoice_number}`"
+			:title="`${t('invoices.title')} #${invoice?.invoice_number}`"
 			:breadcrumbs="[
 				{
-					title: 'Portal',
+					title: t('portal.portal'),
 					href: '/portal',
 				},
 				{
-					title: 'Billing',
+					title: t('nav.billing'),
 					href: '/portal/billing',
 				},
 
 				{
-					title: 'Invoices',
+					title: t('invoices.title'),
 					href: '/portal/billing/invoices',
 				},
 			]"
 		>
 			<template #center>
 				<div v-if="!isPaid" class="flex items-center gap-2">
-					<VText class="font-semibold">Due Date</VText>
+					<VText class="font-semibold">{{ t('invoices.dueDate') }}</VText>
 					<DateDisplay :date="invoice?.due_date" size="xs" />
 				</div>
 			</template>
 			<template #actions>
 				<UButton v-if="!isPaid" color="primary" size="xl" :loading="stripeLoading" @click="handleCheckout(invoice?.id)">
-					Pay Invoice
+					{{ t('invoices.payInvoice') }}
 				</UButton>
 				<div v-if="isPaid" class="inline-flex items-center gap-2 px-4 py-2 border rounded-button border-primary">
 					<UIcon name="material-symbols:price-check-rounded" class="w-8 h-8 text-primary" />
-					<VText size="lg" class="font-bold uppercase font-display">Paid</VText>
+					<VText size="lg" class="font-bold uppercase font-display">{{ t('invoices.paid') }}</VText>
 				</div>
 			</template>
 		</PortalPageHeader>
@@ -116,15 +117,15 @@ const billingAddress = computed(() => {
 			<section class="relative flex flex-col gap-8 md:justify-between md:flex-row">
 				<div id="invoice-details" class="space-y-1">
 					<div class="inline-flex">
-						<TypographyHeadline :content="`Invoice #${invoice?.invoice_number}`" size="xs" />
+						<TypographyHeadline :content="`${t('invoices.title')} #${invoice?.invoice_number}`" size="xs" />
 						<UBadge :color="isPaid ? 'primary' : 'rose'" class="ml-2 capitalize">
 							{{ invoice?.status }}
 						</UBadge>
 					</div>
-					<VText text-color="light">Reference: {{ invoice?.reference }}</VText>
+					<VText text-color="light">{{ t('invoices.reference', { ref: invoice?.reference }) }}</VText>
 					<VDivider />
-					<VText text-color="light">Issued on {{ getFriendlyDate(invoice?.issue_date) }}</VText>
-					<VText class="font-bold">Due on {{ getFriendlyDate(invoice?.due_date) }}</VText>
+					<VText text-color="light">{{ t('invoices.issuedOn', { date: getFriendlyDate(invoice?.issue_date) }) }}</VText>
+					<VText class="font-bold">{{ t('invoices.dueOn', { date: getFriendlyDate(invoice?.due_date) }) }}</VText>
 				</div>
 				<div id="company-branding" class="space-y-1.5">
 					<Logo class="w-32" />
@@ -157,7 +158,7 @@ const billingAddress = computed(() => {
 				</div>
 			</section>
 			<section id="bill-to">
-				<TypographyHeadline content="Bill To" size="xs" />
+				<TypographyHeadline :content="t('invoices.billTo')" size="xs" />
 				<VDivider />
 				<div class="flex flex-col gap-8 mt-4 md:flex-row">
 					<div>
@@ -177,7 +178,7 @@ const billingAddress = computed(() => {
 			</section>
 
 			<section id="line-items">
-				<TypographyHeadline content="Line Items" size="xs" />
+				<TypographyHeadline :content="t('invoices.lineItems')" size="xs" />
 				<VDivider />
 				<UTable :columns="lineItemColumns" :rows="invoice?.line_items">
 					<template #unit_price-data="{ row }">
@@ -196,20 +197,20 @@ const billingAddress = computed(() => {
 			<section id="totals" class="md:flex md:justify-end">
 				<div class="w-full px-3 py-3 mt-8 border rounded-panel dark:border-gray-700 lg:mt-0 md:max-w-[300px]">
 					<div class="flex items-baseline justify-between py-1">
-						<VText text-color="light">Subtotal</VText>
+						<VText text-color="light">{{ t('invoices.subtotal') }}</VText>
 						<VText>{{ formatCurrency(invoice?.subtotal) }}</VText>
 					</div>
 					<div class="flex items-baseline justify-between py-1">
-						<VText text-color="light">Taxes</VText>
+						<VText text-color="light">{{ t('invoices.taxes') }}</VText>
 						<VText>{{ formatCurrency(invoice?.total_tax) }}</VText>
 					</div>
 					<VDivider />
 					<div class="flex items-baseline justify-between py-2">
-						<VText class="font-bold">Total</VText>
+						<VText class="font-bold">{{ t('invoices.total') }}</VText>
 						<VText class="text-xl font-bold text-primary-600">{{ formatCurrency(invoice?.total) }}</VText>
 					</div>
 					<div class="flex items-baseline justify-between py-1">
-						<VText text-color="light">Amount Due</VText>
+						<VText text-color="light">{{ t('invoices.amountDue') }}</VText>
 						<VText class="font-medium text-center">{{ formatCurrency(invoice?.amount_due) }}</VText>
 					</div>
 				</div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { path, params } = useRoute();
+const { t } = useI18n();
 
 const {
 	data: project,
@@ -9,28 +10,28 @@ const {
 	return useDirectus(readItem('os_projects', params.id as string));
 });
 
-const tabs = [
+const tabs = computed(() => [
 	{
-		name: 'Overview',
+		name: t('projects.overview'),
 		href: `/portal/projects/${params.id}`,
 	},
 	{
-		name: 'Tasks',
+		name: t('projects.tasks'),
 		href: `/portal/projects/${params.id}/tasks`,
 	},
 	{
-		name: 'Conversations',
+		name: t('projects.conversations'),
 		href: `/portal/projects/${params.id}/conversations`,
 	},
 	{
-		name: 'Files',
+		name: t('projects.files'),
 		href: `/portal/projects/${params.id}/files`,
 	},
 	{
-		name: 'Billing',
+		name: t('projects.billing'),
 		href: `/portal/projects/${params.id}/billing`,
 	},
-];
+]);
 </script>
 <template>
 	<div class="space-y-6">
@@ -38,11 +39,11 @@ const tabs = [
 			:title="project?.name"
 			:breadcrumbs="[
 				{
-					title: 'Portal',
+					title: t('portal.portal'),
 					href: '/portal',
 				},
 				{
-					title: 'Projects',
+					title: t('projects.title'),
 					href: '/portal/projects',
 				},
 			]"
@@ -50,7 +51,7 @@ const tabs = [
 			<template #center></template>
 			<template #actions>
 				<div class="inline-flex items-center gap-x-4">
-					<VText class="font-semibold" text-color="light">Target Date</VText>
+					<VText class="font-semibold" text-color="light">{{ t('projects.targetDate') }}</VText>
 					<DateDisplay :date="project?.due_date" size="xs" />
 				</div>
 			</template>

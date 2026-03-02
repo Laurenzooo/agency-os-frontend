@@ -1,27 +1,26 @@
 <script setup lang="ts">
-// @TODO This should be coming from the user > organization > folder
-const folderId = null;
+const { t } = useI18n();
 </script>
 <template>
 	<div>
 		<PortalPageHeader
-			title="File Library"
+			:title="t('files.title')"
 			:breadcrumbs="[
 				{
-					title: 'Portal',
+					title: t('portal.portal'),
 					href: '/portal',
 				},
 				{
-					title: 'Files',
+					title: t('nav.files'),
 				},
 			]"
 		>
 			<template #actions>
 				<div>
-					<PortalFileUploadModal :folder-id="folderId" />
+					<PortalFileUploadModal :folder-id="null" />
 				</div>
 			</template>
 		</PortalPageHeader>
-		<PortalFilesView :folder-id="folderId" class="mt-6" />
+		<PortalFilesView :folder-id="null" class="mt-6" />
 	</div>
 </template>

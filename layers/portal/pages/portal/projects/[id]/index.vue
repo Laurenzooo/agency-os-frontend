@@ -2,6 +2,7 @@
 import type { OsProject, OsTask } from '~/types';
 
 const { path, params } = useRoute();
+const { t } = useI18n();
 
 const {
 	data: project,
@@ -71,29 +72,29 @@ const milestones = computed(() => {
 	<div id="overview" class="grid lg:grid-cols-2">
 		<UCard class="mt-6 space-y-4 lg:col-span-2">
 			<!-- Milestones -->
-			<TypographyHeadline content="Milestones" size="xs" />
+			<TypographyHeadline :content="t('projects.milestones')" size="xs" />
 			<PortalProjectMilestones :steps="milestones as any" />
 		</UCard>
 		<section class="px-4 py-3 mt-8 space-y-4">
-			<TypographyHeadline content="Description" size="xs" />
+			<TypographyHeadline :content="t('projects.description')" size="xs" />
 			<TypographyProse v-if="project?.description" :content="project?.description" />
 		</section>
 		<UCard class="mt-8">
 			<!-- Project Team -->
-			<TypographyHeadline content="Team" size="xs" />
+			<TypographyHeadline :content="t('projects.team')" size="xs" />
 			<div class="grid divide-y-2 md:divide-y-0 md:divide-x-2 md:grid-cols-2 dark:divide-gray-700">
 				<div class="p-4 space-y-4">
 					<Logo class="h-6" />
-					<p class="text-sm font-bold">{{ /* @TODO */ 'Company Name' }}</p>
+					<p class="text-sm font-bold">{{ /* @TODO */ t('projects.companyName') }}</p>
 
-					<VLabel label="Project Owner" />
+					<VLabel :label="t('projects.projectOwner')" />
 					<VAvatar :author="project?.owner" size="sm" />
 				</div>
 				<div class="p-4 space-y-4">
 					<img v-if="project?.organization?.logo" :src="fileUrl(project?.organization?.logo)" class="h-6" />
 					<p class="text-sm font-bold">{{ project?.organization?.name }}</p>
 
-					<VLabel label="Contacts" />
+					<VLabel :label="t('projects.contacts')" />
 					<UserBadge
 						v-for="contact in project?.contacts"
 						:key="contact.contacts_id?.id"
@@ -104,7 +105,7 @@ const milestones = computed(() => {
 			</div>
 		</UCard>
 		<div class="px-4 py-3 mt-12 lg:col-span-2">
-			<TypographyHeadline content="Updates" size="xs" />
+			<TypographyHeadline :content="t('projects.updates')" size="xs" />
 			<PortalProjectActivity />
 		</div>
 	</div>

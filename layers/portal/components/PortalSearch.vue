@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { GlobalSearchResult } from '~/types/api/global-search';
+const { t } = useI18n();
 
 const props = defineProps({
 	placeholder: {
 		type: String,
-		default: 'Search items',
+		default: undefined,
 	},
 });
 
@@ -13,34 +14,34 @@ const emit = defineEmits(['close']);
 // Pass the cookies to the server call so we can authenticate the request
 const headers = useRequestHeaders(['cookie']);
 
-const actions = [
+const actions = computed(() => [
 	{
 		id: 'projects',
-		label: 'Go to Projects',
+		label: t('search.goToProjects'),
 		click: () => navigateTo('/portal/projects'),
 	},
 	{
 		id: 'files',
-		label: 'Go to Files',
+		label: t('search.goToFiles'),
 		click: () => navigateTo('/portal/files'),
 	},
 	{
 		id: 'invoices',
-		label: 'Go to Invoices',
+		label: t('search.goToInvoices'),
 		click: () => navigateTo('/portal/billing/invoices'),
 	},
 	{
 		id: 'acccount',
-		label: 'Go to My Account',
+		label: t('search.goToMyAccount'),
 		click: () => navigateTo('/portal/account'),
 	},
-];
+]);
 
 const groups = computed(() => {
 	return [
 		{
 			key: 'search',
-			label: (q: string) => q && `Results matching “${q}”...`,
+			label: (q: string) => q && t('search.resultsMatching', { q }),
 
 			search: async (q: string) => {
 				loading.value = true;
@@ -76,7 +77,7 @@ const groups = computed(() => {
 		},
 		{
 			key: 'actions',
-			commands: actions,
+			commands: actions.value,
 		},
 	].filter(Boolean);
 });
@@ -145,6 +146,7 @@ const ui = {
 			:loading="loading"
 			:groups="groups"
 			:ui="ui"
+			:placeholder="props.placeholder ?? t('search.searchItems')"
 			@update:model-value="onSelect"
 		/>
 	</div>

@@ -7,6 +7,11 @@ definePageMeta({
 });
 
 const { logout, user } = useDirectusAuth();
+const { t, locale, setLocale } = useI18n();
+
+function toggleLocale() {
+	setLocale(locale.value === 'de' ? 'en' : 'de');
+}
 
 const NuxtLink = resolveComponent('NuxtLink');
 
@@ -27,30 +32,30 @@ function useCommandPalette() {
 	};
 }
 
-const sidebarNavigation = {
+const sidebarNavigation = computed(() => ({
 	top: [
-		{ name: 'Search', click: () => (showCommandPalette.value = true), icon: 'material-symbols:search-rounded' },
-		{ name: 'Dashboard', href: '/portal', icon: 'material-symbols:home-outline-rounded' },
-		{ name: 'Projects', href: '/portal/projects', icon: 'material-symbols:tab-group-outline-rounded' },
-		{ name: 'Files', href: '/portal/files', icon: 'material-symbols:folder-outline-rounded' },
-		{ name: 'Billing', href: '/portal/billing', icon: 'material-symbols:attach-money-rounded' },
-		{ name: 'Account', href: '/portal/account', icon: 'material-symbols:account-circle-outline' },
+		{ name: t('nav.search'), click: () => (showCommandPalette.value = true), icon: 'material-symbols:search-rounded' },
+		{ name: t('nav.dashboard'), href: '/portal', icon: 'material-symbols:home-outline-rounded' },
+		{ name: t('nav.projects'), href: '/portal/projects', icon: 'material-symbols:tab-group-outline-rounded' },
+		{ name: t('nav.files'), href: '/portal/files', icon: 'material-symbols:folder-outline-rounded' },
+		{ name: t('nav.billing'), href: '/portal/billing', icon: 'material-symbols:attach-money-rounded' },
+		{ name: t('nav.account'), href: '/portal/account', icon: 'material-symbols:account-circle-outline' },
 	],
-	bottom: [{ name: 'Help', href: '/portal/help', icon: 'material-symbols:help-outline-rounded' }],
-};
+	bottom: [{ name: t('nav.help'), href: '/portal/help', icon: 'material-symbols:help-outline-rounded' }],
+}));
 
-const userNavigation = [
+const userNavigation = computed(() => [
 	[
 		{
-			label: 'Your Profile',
+			label: t('user.yourProfile'),
 			icon: 'i-heroicons-user-circle',
 			click: () => {
 				navigateTo('/portal/account#profile');
 			},
 		},
-		{ label: 'Sign out', icon: 'i-heroicons-arrow-left-on-rectangle', click: () => logout() },
+		{ label: t('user.signOut'), icon: 'i-heroicons-arrow-left-on-rectangle', click: () => logout() },
 	],
-];
+]);
 
 const { showCommandPalette } = useCommandPalette();
 const mobileMenuOpen = ref(false);
@@ -106,10 +111,18 @@ const mobileMenuOpen = ref(false);
 								<span class="mt-2">{{ item.name }}</span>
 							</NuxtLink>
 							<DarkModeToggle bg="dark" class="" />
+							<!-- Language toggle -->
+							<button
+								@click="toggleLocale"
+								class="flex items-center justify-center w-10 h-10 text-xs font-bold text-gray-300 transition rounded-card hover:bg-gray-800 hover:text-white"
+								:title="locale === 'de' ? 'Switch to English' : 'Auf Deutsch wechseln'"
+							>
+								{{ locale === 'de' ? 'EN' : 'DE' }}
+							</button>
 							<!-- Profile dropdown -->
 							<UDropdown class="relative" :items="userNavigation">
 								<button>
-									<span class="sr-only">Open user menu</span>
+									<span class="sr-only">{{ $t('nav.openUserMenu') }}</span>
 									<UAvatar class="w-12 h-12 mx-auto" :src="user.avatar" :alt="userName(user)" />
 								</button>
 							</UDropdown>
@@ -161,7 +174,7 @@ const mobileMenuOpen = ref(false);
 										@click="mobileMenuOpen = false"
 									>
 										<Icon name="heroicons:x-mark" class="w-6 h-6 text-white" aria-hidden="true" />
-										<span class="sr-only">Close sidebar</span>
+										<span class="sr-only">{{ $t('nav.closeSidebar') }}</span>
 									</button>
 								</div>
 							</TransitionChild>
@@ -205,8 +218,8 @@ const mobileMenuOpen = ref(false);
 			<NuxtErrorBoundary>
 				<template #error="{ error, clearError }">
 					<VAlert type="error">{{ error }}</VAlert>
-					<button class="mt-4 text-sm text-gray-500 underline" @click="clearError">Try again</button>
-					<p>An error occurred: {{ error }}</p>
+					<button class="mt-4 text-sm text-gray-500 underline" @click="clearError">{{ $t('portal.tryAgain') }}</button>
+					<p>{{ $t('portal.errorOccurred', { error }) }}</p>
 				</template>
 				<div class="w-full max-w-5xl p-4 mx-auto">
 					<NuxtPage />

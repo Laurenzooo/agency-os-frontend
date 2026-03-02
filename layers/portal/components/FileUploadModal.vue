@@ -4,17 +4,18 @@ export interface FileUploadModalProps {
 }
 
 const props = defineProps<FileUploadModalProps>();
+const { t } = useI18n();
 
 const showUploadModal = ref(false);
 </script>
 <template>
 	<UButton icon="material-symbols:upload-file-outline" size="lg" @click="showUploadModal = !showUploadModal">
-		Upload Files
+		{{ t('files.uploadFiles') }}
 	</UButton>
 	<UModal v-model="showUploadModal">
 		<UCard>
 			<template #header>
-				<TypographyHeadline content="Upload File" size="xs" />
+				<TypographyHeadline :content="t('files.uploadFile')" size="xs" />
 			</template>
 			<VUpload
 				:folder-id="folderId"
@@ -28,7 +29,7 @@ const showUploadModal = ref(false);
 			></VUpload>
 			<template #footer>
 				<div class="flex justify-end gap-x-4">
-					<UButton color="primary" @click="showUploadModal = false">Done</UButton>
+					<UButton color="primary" @click="showUploadModal = false">{{ t('files.done') }}</UButton>
 				</div>
 			</template>
 		</UCard>

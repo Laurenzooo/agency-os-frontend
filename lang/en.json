@@ -1,0 +1,139 @@
+{
+    "nav": {
+        "search": "Search",
+        "dashboard": "Dashboard",
+        "projects": "Projects",
+        "files": "Files",
+        "billing": "Billing",
+        "account": "Account",
+        "help": "Help",
+        "openUserMenu": "Open user menu",
+        "closeSidebar": "Close sidebar"
+    },
+    "user": {
+        "yourProfile": "Your Profile",
+        "signOut": "Sign out",
+        "friend": "friend"
+    },
+    "portal": {
+        "portal": "Portal",
+        "tryAgain": "Try again",
+        "errorOccurred": "An error occurred: {error}"
+    },
+    "dashboard": {
+        "greetings": [
+            "Remember, every challenge is easier together.",
+            "Your vision is our mission. Together, we'll create something outstanding.",
+            "The best projects are fueled by partnership. Here's to another successful day working together!",
+            "Every detail, every idea, every feedback. It all matters. Thank you for entrusting us with your vision.",
+            "Project management isn't just about the destination, it's about enjoying and learning from the journey. We're thrilled to be on this adventure with you.",
+            "With every challenge, we grow stronger. Thanks for pushing us to be our best!",
+            "From concept to completion, your aspirations are in dedicated hands. Let's keep moving forward, together.",
+            "Like a symphony, every note counts. We're harmonizing perfectly with your vision, creating a masterpiece in progress.",
+            "As we tackle today's tasks, know that our commitment to your success is unwavering.",
+            "Every step with you is a step towards brilliance. Thanks for making this journey shine brighter."
+        ]
+    },
+    "projects": {
+        "title": "Projects",
+        "name": "Name",
+        "status": "Status",
+        "targetDate": "Target Date",
+        "overview": "Overview",
+        "tasks": "Tasks",
+        "conversations": "Conversations",
+        "files": "Files",
+        "billing": "Billing",
+        "milestones": "Milestones",
+        "description": "Description",
+        "team": "Team",
+        "projectOwner": "Project Owner",
+        "contacts": "Contacts",
+        "updates": "Updates",
+        "companyName": "Company Name"
+    },
+    "tasks": {
+        "name": "Name",
+        "dueDate": "Due Date",
+        "status": "Status",
+        "type": "Type",
+        "assignedTo": "Assigned To",
+        "openTasks": "Open Tasks",
+        "tasks": "tasks",
+        "taskWithNoName": "Task with no name",
+        "close": "Close",
+        "description": "Description",
+        "files": "Files",
+        "form": "Form",
+        "embed": "Embed",
+        "markAs": "Mark as {status}",
+        "taskNotFound": "Task not found",
+        "errorUpdatingTask": "Error updating task"
+    },
+    "taskStatuses": {
+        "pending": "Pending",
+        "active": "Up Next",
+        "in_progress": "In Progress",
+        "in_review": "In Review",
+        "completed": "Completed"
+    },
+    "invoices": {
+        "title": "Invoices",
+        "invoiceNumber": "#",
+        "status": "Status",
+        "dueDate": "Due Date",
+        "contact": "Contact",
+        "total": "Total",
+        "amountDue": "Amount Due",
+        "updatePaymentSettings": "Update Payment Settings",
+        "search": "Search...",
+        "invoiceStatus": "Invoice Status",
+        "reset": "Reset",
+        "resetFilters": "Reset Filters",
+        "nothingHere": "Looks like there's nothing here.",
+        "showing": "Showing",
+        "to": "to",
+        "of": "of",
+        "results": "results",
+        "payInvoice": "Pay Invoice",
+        "paid": "Paid",
+        "reference": "Reference: {ref}",
+        "issuedOn": "Issued on {date}",
+        "dueOn": "Due on {date}",
+        "billTo": "Bill To",
+        "lineItems": "Line Items",
+        "lineNumber": "Line #",
+        "item": "Item",
+        "quantity": "Quantity",
+        "unitPrice": "Unit Price",
+        "lineAmount": "Line Amount",
+        "taxAmount": "Tax Amount",
+        "subtotal": "Subtotal",
+        "taxes": "Taxes",
+        "openInvoices": "Open Invoices",
+        "statusOpen": "Open",
+        "statusPaid": "Paid",
+        "statusAll": "All"
+    },
+    "files": {
+        "title": "File Library",
+        "files": "Files",
+        "uploadFiles": "Upload Files",
+        "uploadFile": "Upload File",
+        "done": "Done"
+    },
+    "account": {
+        "title": "Account"
+    },
+    "help": {
+        "title": "Help Center"
+    },
+    "search": {
+        "searchItems": "Search items",
+        "goToProjects": "Go to Projects",
+        "goToFiles": "Go to Files",
+        "goToInvoices": "Go to Invoices",
+        "goToMyAccount": "Go to My Account",
+        "resultsMatching": "Results matching \"{q}\"..."
+    }
+}

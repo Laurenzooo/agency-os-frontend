@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<TaskProps>(), {
 });
 
 const { fileUrl } = useFiles();
+const { t } = useI18n();
 
 const task: Ref<OsTask | null> = ref(null);
 
@@ -32,7 +33,7 @@ async function fetchTask(id: string) {
 	} catch (err) {
 		throw createError({
 			statusCode: 404,
-			message: 'Task not found',
+			message: t('tasks.taskNotFound'),
 		});
 	}
 }
@@ -44,7 +45,7 @@ async function updateTask(id: string, item: Partial<OsTask>) {
 	} catch (error) {
 		throw createError({
 			statusCode: 500,
-			message: 'Error updating task',
+			message: t('tasks.errorUpdatingTask'),
 		});
 	}
 }
@@ -55,7 +56,7 @@ const taskStatus = computed(() => {
 	const status: TaskStatusKey | undefined = task.value?.status;
 
 	if (status) {
-		return taskStatuses[status]; // This should now be type-safe
+		return taskStatuses.value[status]; // This should now be type-safe
 	}
 
 	return undefined;
@@ -79,42 +80,42 @@ interface TaskStatusDetail {
 	sort?: number;
 }
 
-const taskStatuses: Record<TaskStatusKey, TaskStatusDetail> = {
+const taskStatuses = computed<Record<TaskStatusKey, TaskStatusDetail>>(() => ({
 	pending: {
-		label: 'Pending',
+		label: t('taskStatuses.pending'),
 		icon: 'i-heroicons-clock-20-solid',
 		color: 'gray',
 		sort: 1,
 	},
 	active: {
-		label: 'Up Next',
+		label: t('taskStatuses.active'),
 		icon: 'i-heroicons-play-20-solid',
 		color: 'blue',
 		sort: 2,
 	},
 	in_progress: {
-		label: 'In Progress',
+		label: t('taskStatuses.in_progress'),
 		icon: 'i-heroicons-wrench-screwdriver-20-solid',
 		color: 'amber',
 		sort: 3,
 	},
 	in_review: {
-		label: 'In Review',
+		label: t('taskStatuses.in_review'),
 		icon: 'i-heroicons-exclamation-circle-20-solid',
 		color: 'orange',
 		sort: 4,
 	},
 	completed: {
-		label: 'Completed',
+		label: t('taskStatuses.completed'),
 		icon: 'i-heroicons-check-20-solid',
 		color: 'green',
 		sort: 5,
 	},
-};
+}));
 
 const availableStatuses = computed(() => {
 	// Return the available statuses based on the current task status
-	const statuses = Object.entries(taskStatuses).filter(([key, value]) => {
+	const statuses = Object.entries(taskStatuses.value).filter(([key, value]) => {
 		if (key === task.value?.status) {
 			return false;
 		} else {
@@ -124,7 +125,7 @@ const availableStatuses = computed(() => {
 
 	return statuses.map(([key, value]) => {
 		return {
-			label: 'Mark as ' + value.label,
+			label: t('tasks.markAs', { status: value.label }),
 			value: key,
 			icon: value.icon,
 			// If the task has a form, then we need to check for the form submission first
@@ -163,7 +164,7 @@ const emit = defineEmits(['close']);
 						leading-icon="i-heroicons-x-mark"
 						@click="$emit('close')"
 					>
-						Close
+						{{ t('tasks.close') }}
 					</UButton>
 				</div>
 			</div>
@@ -173,11 +174,11 @@ const emit = defineEmits(['close']);
 		<UContainer class="pb-12 mt-8 space-y-8">
 			<div class="grid gap-8 md:grid-cols-2">
 				<div>
-					<VLabel label="Assigned To" />
+					<VLabel :label="t('tasks.assignedTo')" />
 					<VAvatar v-if="task?.assigned_to" :author="task?.assigned_to as User" />
 				</div>
 				<div class="">
-					<VLabel label="Due Date" />
+					<VLabel :label="t('tasks.dueDate')" />
 					<div class="flex space-x-1.5">
 						<DateDisplay :date="task?.due_date as string" size="sm" />
 					</div>
@@ -185,11 +186,11 @@ const emit = defineEmits(['close']);
 			</div>
 
 			<div>
-				<VLabel label="Description" />
+				<VLabel :label="t('tasks.description')" />
 				<div class="prose dark:prose-invert" v-html="task?.description" />
 			</div>
 			<div class="space-y-2">
-				<VLabel label="Files" />
+				<VLabel :label="t('tasks.files')" />
 				<div v-if="task?.files && task?.files?.length > 0" class="grid gap-4 sm:grid-cols-2">
 					<PortalFileCard
 						v-for="file in task.files as any[]"
@@ -199,11 +200,11 @@ const emit = defineEmits(['close']);
 				</div>
 			</div>
 			<div v-if="task?.form">
-				<VLabel label="Form" />
+				<VLabel :label="t('tasks.form')" />
 				<UForm :form="task.form as Form" />
 			</div>
 			<div v-if="task?.embed_url">
-				<VLabel label="Embed" />
+				<VLabel :label="t('tasks.embed')" />
 				<iframe
 					:src="transformUrlToIframeSrc(task.embed_url)"
 					class="w-full h-[550px] overflow-hidden border border-gray-300 dark:border-gray-700 rounded-panel"

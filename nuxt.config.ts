@@ -34,7 +34,19 @@ export default defineNuxtConfig({
 		'@vueuse/motion/nuxt', // https://motion.vueuse.org/nuxt.html
 		'@vueuse/nuxt', // https://vueuse.org/
 		'@nuxt/icon', // https://github.com/nuxt-modules/icon
+		'@nuxtjs/i18n', // https://i18n.nuxtjs.org
 	],
+
+	// i18n Configuration - https://i18n.nuxtjs.org
+	i18n: {
+		locales: [
+			{ code: 'de', file: 'de.json', name: 'Deutsch' },
+			{ code: 'en', file: 'en.json', name: 'English' },
+		],
+		defaultLocale: 'de',
+		langDir: '../lang/',
+		strategy: 'no_prefix',
+	},
 
 	experimental: {
 		componentIslands: true,

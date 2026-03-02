@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { path, params } = useRoute();
+const { t } = useI18n();
 
 const {
 	data: folder,
@@ -15,11 +16,11 @@ const {
 			:title="folder?.name"
 			:breadcrumbs="[
 				{
-					title: 'Portal',
+					title: t('portal.portal'),
 					href: '/portal',
 				},
 				{
-					title: 'Files',
+					title: t('nav.files'),
 					href: '/portal/files',
 				},
 			]"

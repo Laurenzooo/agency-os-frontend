@@ -2,6 +2,7 @@
 import type { OsTask } from '~/types';
 
 const { path } = useRoute();
+const { t } = useI18n();
 
 const { data: projects, error } = await useAsyncData(
 	path,
@@ -39,51 +40,51 @@ if (error) {
 
 type TaskStatus = 'pending' | 'active' | 'in_progress' | 'in_review' | 'completed';
 
-const taskStatuses = {
+const taskStatuses = computed(() => ({
 	pending: {
-		label: 'Pending',
+		label: t('taskStatuses.pending'),
 		icon: 'i-heroicons-clock-20-solid',
 		color: 'gray',
 	},
 	active: {
-		label: 'Active',
+		label: t('taskStatuses.active'),
 		icon: 'i-heroicons-play-20-solid',
 		color: 'blue',
 	},
 	in_progress: {
-		label: 'In Progress',
+		label: t('taskStatuses.in_progress'),
 		icon: 'i-heroicons-wrench-screwdriver-20-solid',
 		color: 'amber',
 	},
 	in_review: {
-		label: 'In Review',
+		label: t('taskStatuses.in_review'),
 		icon: 'i-heroicons-exclamation-circle-20-solid',
 		color: 'orange',
 	},
 	completed: {
-		label: 'Completed',
+		label: t('taskStatuses.completed'),
 		icon: 'i-heroicons-check-20-solid',
 		color: 'green',
 	},
-};
+}));
 
-const columns = [
+const columns = computed(() => [
 	{
 		key: 'name',
-		label: 'Name',
+		label: t('projects.name'),
 	},
 	{
 		key: 'milestones',
-		label: 'Status',
+		label: t('projects.status'),
 	},
 	{
 		key: 'due_date',
-		label: 'Target Date',
+		label: t('projects.targetDate'),
 	},
 	{
 		key: 'actions',
 	},
-];
+]);
 
 const projectsShown = computed(() => {
 	if (!projects.value) {
@@ -103,7 +104,7 @@ const projectsShown = computed(() => {
 					isCurrent: task.status === 'active' || task.status === 'in_progress' || task.status === 'in_review',
 					icon: 'i-heroicons-calendar',
 					name: task.name,
-					status: taskStatuses[(task.status as TaskStatus) ?? 'pending'].label,
+					status: taskStatuses.value[(task.status as TaskStatus) ?? 'pending'].label,
 				};
 			}),
 		};
@@ -113,14 +114,14 @@ const projectsShown = computed(() => {
 <template>
 	<div>
 		<PortalPageHeader
-			title="Projects"
+			:title="t('projects.title')"
 			:breadcrumbs="[
 				{
-					title: 'Portal',
+					title: t('portal.portal'),
 					href: '/portal',
 				},
 				{
-					title: 'Projects',
+					title: t('projects.title'),
 				},
 			]"
 		>

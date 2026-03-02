@@ -4,6 +4,7 @@ export interface TaskListProps {
 }
 
 const props = defineProps<TaskListProps>();
+const { t } = useI18n();
 
 const {
 	data: tasks,
@@ -42,37 +43,37 @@ const {
 	);
 });
 
-const columns = [
+const columns = computed(() => [
 	{
 		key: 'name',
-		label: 'Name',
+		label: t('tasks.name'),
 		sortable: true,
 	},
 	{
 		key: 'due_date',
-		label: 'Due Date',
+		label: t('tasks.dueDate'),
 		sortable: true,
 	},
 	{
 		key: 'status',
-		label: 'Status',
+		label: t('tasks.status'),
 		sortable: true,
 	},
 	{
 		key: 'type',
-		label: 'Type',
+		label: t('tasks.type'),
 		sortable: true,
 	},
 	{
 		key: 'assigned_to',
-		label: 'Assigned To',
+		label: t('tasks.assignedTo'),
 		sortable: true,
 	},
 
 	{
 		key: 'actions',
 	},
-];
+]);
 
 const showTask = ref(false);
 const selectedTaskId: Ref<string | null> = ref(null);
@@ -100,7 +101,7 @@ const tasksShown = computed(() => {
 <template>
 	<!-- Filters -->
 	<div class="flex items-center justify-between gap-3 pb-3 border-b dark:border-gray-700">
-		<UInput v-model="searchQuery" type="text" icon="i-heroicons-magnifying-glass-20-solid" placeholder="Search..." />
+		<UInput v-model="searchQuery" type="text" icon="i-heroicons-magnifying-glass-20-solid" :placeholder="t('invoices.search')" />
 	</div>
 	<!-- Table -->
 	<UTable :columns="columns" :rows="tasksShown" column-attribute="label">

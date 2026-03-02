@@ -1,15 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { t } = useI18n();
+</script>
 <template>
 	<div>
 		<PortalPageHeader
-			title="Account"
+			:title="t('account.title')"
 			:breadcrumbs="[
 				{
-					title: 'Portal',
+					title: t('portal.portal'),
 					href: '/portal',
 				},
 				{
-					title: 'Account',
+					title: t('account.title'),
 				},
 			]"
 		>
